@@ -1,0 +1,31 @@
+:root {
+  --background-rgb: 245 247 252; /* #F5F7FC - very light blue-white */
+  --surface-rgb: 255 255 255; /* #FFFFFF - pure white cards */
+  --surface-light-rgb: 248 250 255; /* #F8FAFF - secondary light surface */
+  --primary-rgb: 49 85 231; /* #3155E7 - premium aerospace blue */
+  --secondary-rgb: 109 69 232; /* #6D45E8 - royal indigo */
+  --accent-rgb: 34 167 214; /* #22A7D6 - cyan/teal highlight */
+  --success-rgb: 16 185 129;
+  --warning-rgb: 245 158 11;
+  --danger-rgb: 239 68 68;
+  --muted-rgb: 100 116 139;
+  --border: rgba(49, 85, 231, 0.08);
+  --text-main: #0A1128; /* Premium Dark Navy */
+  --shadow: 0 8px 30px rgba(30, 50, 100, 0.06);
+}
+
+.dark {
+  --background-rgb: 10 12 20; /* #0A0C14 - deep space background */
+  --surface-rgb: 18 21 36; /* #121524 - dark surface */
+  --surface-light-rgb: 28 33 54; /* #1C2136 - secondary dark surface */
+  --primary-rgb: 74 91 220; /* #4A5BDC - cyan-blue */
+  --secondary-rgb: 107 124 255; /* #6B7CFF - indigo */
+  --accent-rgb: 0 229 255; /* #00E5FF - electric cyan */
+  --success-rgb: 16 185 129;
+  --warning-rgb: 245 158 11;
+  --danger-rgb: 239 68 68;
+  --muted-rgb: 100 116 139;
+  --border: rgba(255, 255, 255, 0.08);
+  --text-main: #ffffff;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}

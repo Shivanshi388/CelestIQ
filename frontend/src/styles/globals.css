@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply m-0 p-0 h-full w-full bg-background font-sans overflow-hidden transition-colors duration-300;
+    color: var(--text-main);
+  }
+
+  /* Space-like animated theme background for dark mode */
+  html.dark body {
+    background: 
+      radial-gradient(1px 1px at 40px 80px, rgba(255, 255, 255, 0.4), rgba(0,0,0,0)),
+      radial-gradient(1.5px 1.5px at 180px 120px, rgba(255, 255, 255, 0.3), rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 300px 240px, rgba(255, 255, 255, 0.45), rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 480px 380px, rgba(255, 255, 255, 0.25), rgba(0,0,0,0)),
+      radial-gradient(1.5px 1.5px at 620px 160px, rgba(255, 255, 255, 0.35), rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 740px 480px, rgba(255, 255, 255, 0.4), rgba(0,0,0,0)),
+      radial-gradient(2.5px 2.5px at 900px 290px, rgba(255, 255, 255, 0.2), rgba(0,0,0,0)),
+      rgb(var(--background-rgb));
+    background-size: 1000px 1000px;
+    animation: spaceGlow 120s ease-in-out infinite alternate;
+  }
+
+  html.dark body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(74, 91, 220, 0.08), transparent 70%),
+                radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.05), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes spaceGlow {
+    0% {
+      background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    }
+    100% {
+      background-position: 30px 40px, -40px 30px, 20px -30px, -30px -50px, 40px 60px, -15px 30px, 20px -20px;
+    }
+  }
+
+  /* Custom Scrollbar for sleek aesthetic */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.2);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.4);
+  }
+
+  /* Premium tactile click interactions */
+  button, a {
+    transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  button:active, a:active, [role="button"]:active {
+    transform: scale(0.96) translateY(1px);
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background-color: rgba(var(--surface-rgb), 0.85);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    @apply backdrop-blur-md rounded-xl transition-all duration-300;
+  }
+  
+  .topbar-bg {
+    background-color: rgba(var(--background-rgb), 0.8);
+  }
+  
+  .glass-panel-interactive {
+    @apply glass-panel cursor-pointer;
+  }
+  
+  .glass-panel-interactive:hover {
+    transform: translateY(-2.5px);
+    border-color: rgba(var(--primary-rgb), 0.35);
+    box-shadow: 0 15px 35px rgba(30, 50, 100, 0.08), 0 0 12px rgba(49, 85, 231, 0.05);
+  }
+
+  .dark .glass-panel-interactive:hover {
+    border-color: rgba(var(--primary-rgb), 0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35), 0 0 15px rgba(74, 91, 220, 0.2);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -1000;
+    }
+  }
+
+  .page-enter {
+    animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.98) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+}
