@@ -1,0 +1,48 @@
+import { Satellite } from '@/types/satellite';
+
+export const mockSatellites: Satellite[] = [
+  {
+    id: 'sat-01',
+    name: 'SAT-07',
+    orbitType: 'LEO',
+    status: 'Active',
+    altitude: 421.4,
+    velocity: 7.66,
+    battery: 94,
+    signalStrength: 'Strong',
+    position: { lat: 0, lng: 0, alt: 1.2, angle: 0 },
+  },
+  {
+    id: 'sat-02',
+    name: 'SAT-15',
+    orbitType: 'LEO',
+    status: 'Active',
+    altitude: 450.2,
+    velocity: 7.64,
+    battery: 88,
+    signalStrength: 'Good',
+    position: { lat: 45, lng: 90, alt: 1.25, angle: Math.PI / 2 },
+  },
+  {
+    id: 'sat-03',
+    name: 'ORB-12',
+    orbitType: 'MEO',
+    status: 'Active',
+    altitude: 20200.0,
+    velocity: 3.87,
+    battery: 100,
+    signalStrength: 'Strong',
+    position: { lat: 20, lng: -45, alt: 2.5, angle: Math.PI },
+  },
+  {
+    id: 'sat-04',
+    name: 'GEO-03',
+    orbitType: 'GEO',
+    status: 'Maintenance',
+    altitude: 35786.0,
+    velocity: 3.07,
+    battery: 45,
+    signalStrength: 'Weak',
+    position: { lat: 0, lng: 180, alt: 4.0, angle: (3 * Math.PI) / 2 },
+  },
+];

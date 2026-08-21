@@ -1,0 +1,55 @@
+import { Alert } from '@/types/alert';
+
+export const mockAlerts: Alert[] = [
+  {
+    id: 'alt-01',
+    title: 'Solar Flare Impact',
+    satelliteId: 'all',
+    satelliteName: 'All Satellites',
+    severity: 'Critical',
+    status: 'Active',
+    timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString(),
+    description: 'High energy solar flare detected. Potential for communication disruption.',
+    recommendedAction: 'Monitor communication links and initiate contingency protocol.',
+  },
+  {
+    id: 'alt-02',
+    title: 'Fuel Level Low',
+    satelliteId: 'sat-01',
+    satelliteName: 'SAT-07',
+    severity: 'High',
+    status: 'Active',
+    timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+    description: 'Fuel reserve dropping below nominal threshold for station keeping.',
+  },
+  {
+    id: 'alt-03',
+    title: 'Communication Delay',
+    satelliteId: 'sat-03',
+    satelliteName: 'ORB-12',
+    severity: 'Medium',
+    status: 'Monitoring',
+    timestamp: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
+    description: 'Latency in telemetry downlink exceeded 500ms.',
+  },
+  {
+    id: 'alt-04',
+    title: 'Orbital Debris Detected',
+    satelliteId: 'sat-04',
+    satelliteName: 'GEO-03',
+    severity: 'Low',
+    status: 'Monitoring',
+    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
+    description: 'Micro-debris tracking within 50km radius. No immediate collision risk.',
+  },
+  {
+    id: 'alt-05',
+    title: 'Battery Temperature High',
+    satelliteId: 'sat-02',
+    satelliteName: 'SAT-15',
+    severity: 'High',
+    status: 'Active',
+    timestamp: new Date(Date.now() - 1000 * 60 * 120).toISOString(),
+    description: 'Thermal sensors indicate battery cell temperature exceeding optimal range.',
+  }
+];
