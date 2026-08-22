@@ -1,4 +1,4 @@
-import { OrbitVisualization } from '../components/dashboard/OrbitVisualization';
+import { OrbitVisualization } from '../features/visualization/components/OrbitVisualization';
 
 export const OrbitView = () => {
   return (

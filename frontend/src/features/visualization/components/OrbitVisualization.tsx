@@ -1,37 +1,123 @@
-import React, { useRef, useMemo } from 'react';
+import { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars, Sphere, Html, Line } from '@react-three/drei';
+import { OrbitControls, Stars, Sphere, Html, Line, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { useOrbitData } from '../hooks/useOrbitData';
 import { useVisualizationStore } from '@/store/visualization.store';
+import { useTheme } from '@/context/ThemeContext';
 import { Satellite } from '@/types/satellite';
 
-const EARTH_RADIUS = 1;
-const LEO_RADIUS = 1.2;
-const MEO_RADIUS = 2.5;
-const GEO_RADIUS = 4.0;
+// Adjusting scales so Earth is large and prominent
+const EARTH_RADIUS = 1.2;
+const LEO_RADIUS = 2.0;
+const MEO_RADIUS = 3.5;
+const GEO_RADIUS = 5.0;
+const AGENT_RADIUS = 2.75; // Between LEO and MEO
 
-function Earth() {
+// ---------------------------------------------------------------------------
+// 1. EARTH — Textured sphere using useTexture (Suspense boundary handles loading)
+// ---------------------------------------------------------------------------
+
+// Local texture maps: day map for light theme, night map (city lights) for dark theme
+const EARTH_DAY_MAP = '/Textures/2k_earth_daymap.jpg';
+const EARTH_NIGHT_MAP = '/Textures/8k_earth_nightmap.jpg';
+
+function EarthTextured() {
+  const earthRef = useRef<THREE.Mesh>(null);
+  const cloudsRef = useRef<THREE.Mesh>(null);
+  const { theme } = useTheme();
+  const isNight = theme === 'dark';
+
+  // Preload both maps once; swap the active one when the theme changes
+  const [dayMap, nightMap] = useTexture([EARTH_DAY_MAP, EARTH_NIGHT_MAP]);
+  dayMap.colorSpace = THREE.SRGBColorSpace;
+  nightMap.colorSpace = THREE.SRGBColorSpace;
+
+  const colorMap = isNight ? nightMap : dayMap;
+
+  // Slow continuous rotation around Earth's own Y axis
+  useFrame((_state, delta) => {
+    if (earthRef.current) {
+      earthRef.current.rotation.y += delta * 0.05; // Slow rotation
+    }
+    if (cloudsRef.current) {
+      cloudsRef.current.rotation.y += delta * 0.06; // Clouds rotate slightly faster for parallax
+    }
+  });
+
   return (
-    <Sphere args={[EARTH_RADIUS, 64, 64]}>
-      <meshStandardMaterial 
-        color="#1a3b5c"
-        roughness={0.8}
-        metalness={0.2}
-        emissive="#0a1a2f"
-        emissiveIntensity={0.2}
-      />
-      {/* A stylized grid or wireframe to make it look techy */}
-      <meshBasicMaterial color="#00e5ff" wireframe transparent opacity={0.05} />
+    <group>
+      {/* Earth must be the central reference point at world position (0,0,0) */}
+      <Sphere ref={earthRef} args={[EARTH_RADIUS, 64, 64]} position={[0, 0, 0]}>
+        <meshStandardMaterial
+          map={colorMap}
+          emissiveMap={colorMap}
+          emissive={isNight ? '#ffffff' : '#051020'}
+          emissiveIntensity={isNight ? 0.9 : 0.3} // Night: city lights self-glow; Day: subtle dark-side lift
+          roughness={0.7}
+          metalness={0.1}
+        />
+      </Sphere>
+
+      {/* Lightweight Cloud Layer */}
+      <Sphere ref={cloudsRef} args={[EARTH_RADIUS * 1.015, 64, 64]} position={[0, 0, 0]}>
+        <meshStandardMaterial
+          color="#ffffff"
+          transparent
+          opacity={0.1}
+          roughness={1}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </Sphere>
+
+      {/* Thin Inner Atmospheric Rim (Fresnel-like) */}
+      <Sphere args={[EARTH_RADIUS * 1.03, 48, 48]} position={[0, 0, 0]}>
+        <meshBasicMaterial
+          color="#4499ff"
+          transparent
+          opacity={0.2}
+          side={THREE.BackSide}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </Sphere>
+
+      {/* Soft Outer Atmospheric Glow */}
+      <Sphere args={[EARTH_RADIUS * 1.1, 48, 48]} position={[0, 0, 0]}>
+        <meshBasicMaterial
+          color="#2266cc"
+          transparent
+          opacity={0.08}
+          side={THREE.BackSide}
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </Sphere>
+    </group>
+  );
+}
+
+// Fallback while texture loads
+function EarthFallback() {
+  return (
+    <Sphere args={[EARTH_RADIUS, 32, 32]} position={[0, 0, 0]}>
+      <meshStandardMaterial color="#1a3b5c" wireframe opacity={0.5} transparent />
     </Sphere>
   );
 }
 
+// ---------------------------------------------------------------------------
+// 2. ORBIT GEOMETRY
+// ---------------------------------------------------------------------------
+
 function OrbitPath({ radius, color }: { radius: number; color: string }) {
+  // Use clean circular paths in 3D space centered around Earth (0,0,0)
   const points = useMemo(() => {
-    const pts = [];
-    for (let i = 0; i <= 64; i++) {
-      const angle = (i / 64) * Math.PI * 2;
+    const pts: THREE.Vector3[] = [];
+    const segments = 128;
+    for (let i = 0; i <= segments; i++) {
+      const angle = (i / segments) * Math.PI * 2;
       pts.push(new THREE.Vector3(Math.cos(angle) * radius, 0, Math.sin(angle) * radius));
     }
     return pts;
@@ -41,122 +127,202 @@ function OrbitPath({ radius, color }: { radius: number; color: string }) {
     <Line
       points={points}
       color={color}
-      lineWidth={1}
+      lineWidth={1.5}
       transparent
-      opacity={0.3}
+      opacity={0.4}
+      dashed={true}
+      dashSize={0.2}
+      dashScale={1}
+      gapSize={0.2}
     />
   );
 }
 
-function SatelliteMarker({ satellite, onClick, isSelected, showLabels, showTelemetry }: { 
-  satellite: Satellite; 
+// ---------------------------------------------------------------------------
+// 3. SATELLITE POSITIONING & LABELS
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// 3. SATELLITE POSITIONING & LABELS
+// ---------------------------------------------------------------------------
+
+function SatelliteMarker({
+  satellite,
+  onClick,
+  isSelected,
+  showLabels,
+}: {
+  satellite: Satellite;
   onClick: () => void;
   isSelected: boolean;
   showLabels: boolean;
   showTelemetry: boolean;
 }) {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
   
-  const getRadius = (type: string) => {
-    if (type === 'LEO') return LEO_RADIUS;
-    if (type === 'MEO') return MEO_RADIUS;
-    if (type === 'GEO') return GEO_RADIUS;
-    return LEO_RADIUS;
-  };
+  // Local state for smooth animation
+  const localAngle = useRef(satellite.position.angle);
 
-  const radius = getRadius(satellite.orbitType);
-  
-  useFrame(() => {
-    if (meshRef.current) {
-      // Assuming angle is updated by the hook
-      meshRef.current.position.x = Math.cos(satellite.position.angle) * radius;
-      meshRef.current.position.z = Math.sin(satellite.position.angle) * radius;
-      // Basic tilt for visual interest (based on initial lat/lng pseudo values)
-      meshRef.current.position.y = Math.sin(satellite.position.angle + satellite.position.lat) * (radius * 0.2);
+  const radius = satellite.orbitType === 'LEO' ? LEO_RADIUS
+    : satellite.orbitType === 'MEO' ? MEO_RADIUS
+    : GEO_RADIUS;
+
+  // Speeds (LEO > MEO > GEO)
+  const speed = satellite.orbitType === 'LEO' ? 0.3
+    : satellite.orbitType === 'MEO' ? 0.15
+    : 0.08;
+
+  const color = satellite.orbitType === 'LEO' ? '#4a5bdc'
+    : satellite.orbitType === 'MEO' ? '#00e5ff'
+    : '#9d4edd';
+
+  useFrame((_state, delta) => {
+    // Recalculate satellite position every animation frame from its orbital angle
+    localAngle.current += delta * speed;
+
+    if (groupRef.current) {
+      // mathematically positioned ON its own orbit
+      groupRef.current.position.x = radius * Math.cos(localAngle.current);
+      groupRef.current.position.z = radius * Math.sin(localAngle.current);
+      groupRef.current.position.y = 0; // Exactly on the orbital plane
+    }
+
+    if (ringRef.current) {
+      ringRef.current.rotation.z += delta * 1.0;
     }
   });
 
-  const color = satellite.orbitType === 'LEO' ? '#4a5bdc' : satellite.orbitType === 'MEO' ? '#00e5ff' : '#9d4edd';
-
   return (
-    <group>
-      <mesh ref={meshRef} onClick={(e) => { e.stopPropagation(); onClick(); }}>
-        <boxGeometry args={[0.05, 0.05, 0.05]} />
-        <meshStandardMaterial color={isSelected ? '#ffffff' : color} emissive={color} emissiveIntensity={isSelected ? 1 : 0.5} />
-        
-        {(showLabels || isSelected) && (
-          <Html distanceFactor={10} position={[0, 0.1, 0]} center>
-            <div className="flex flex-col items-center pointer-events-none">
-              <div className={`px-2 py-1 rounded bg-surface/80 backdrop-blur border text-xs whitespace-nowrap transition-colors ${isSelected ? 'border-primary shadow-glow-primary' : 'border-border/50'}`}>
-                <div className="font-bold text-white">{satellite.name}</div>
-                <div className="text-muted text-[10px] uppercase tracking-wider">{satellite.orbitType}</div>
-                
-                {(showTelemetry || isSelected) && (
-                  <div className="mt-1 pt-1 border-t border-border/50 flex flex-col gap-0.5 text-[10px]">
-                    <div className="flex justify-between gap-3">
-                      <span className="text-muted">ALT</span>
-                      <span className="text-accent font-mono">{satellite.altitude.toFixed(1)} km</span>
-                    </div>
-                    <div className="flex justify-between gap-3">
-                      <span className="text-muted">VEL</span>
-                      <span className="text-success font-mono">{satellite.velocity.toFixed(2)} km/s</span>
-                    </div>
-                  </div>
-                )}
+    // The group itself is moved around the orbit.
+    // The label is a child of this group, so it perfectly follows the 3D position.
+    <group ref={groupRef} onClick={(e) => { e.stopPropagation(); onClick(); }}>
+      
+      {/* 3D Satellite Mesh — Futuristic drone appearance (from Anti-Gravity Agent) */}
+      <mesh>
+        <octahedronGeometry args={[0.04, 0]} />
+        <meshStandardMaterial
+          color="#ffffff"
+          emissive={isSelected ? '#ffffff' : color}
+          emissiveIntensity={isSelected ? 2.5 : 1.5}
+          metalness={0.8}
+        />
+      </mesh>
+      
+      <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.1, 0.008, 16, 32]} />
+        <meshStandardMaterial 
+          color={color} 
+          emissive={color} 
+          emissiveIntensity={isSelected ? 1.5 : 0.8} 
+        />
+      </mesh>
+
+      {/* Minimal Label Overlay — tightly coupled to the group's position */}
+      {(showLabels || isSelected) && (
+        <Html 
+          distanceFactor={10} 
+          position={[0, 0.4, 0]} // Raised slightly higher to avoid overlap
+          center 
+          zIndexRange={[100, 0]}
+        >
+          <div className="pointer-events-none select-none">
+            <div
+              className="px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-md border transition-all duration-200"
+              style={{
+                borderColor: isSelected ? color : `${color}4D`, // 4D = 30% opacity
+                boxShadow: `0 0 8px ${color}33`, // 33 = 20% opacity
+              }}
+            >
+              <div 
+                className="font-bold text-[10px] leading-tight whitespace-nowrap"
+                style={{ color: color }}
+              >
+                {satellite.name}
+              </div>
+              <div 
+                className="text-[8px] uppercase tracking-wider leading-none mt-[1px]"
+                style={{ color: 'rgba(255,255,255,0.7)' }}
+              >
+                {satellite.orbitType}
               </div>
             </div>
-          </Html>
-        )}
-      </mesh>
+          </div>
+        </Html>
+      )}
     </group>
   );
 }
 
+// ---------------------------------------------------------------------------
+// 4. SCENE ROOT
+// ---------------------------------------------------------------------------
+
 export function OrbitVisualization() {
+  // We consume the raw satellites array from the hook, 
+  // but we IGNORE the changing angles it provides, using our own smooth useFrame logic instead.
+  // This guarantees there is only ONE source of truth for the animation.
   const { satellites } = useOrbitData();
   const { selectedSatelliteId, setSelectedSatelliteId, layers } = useVisualizationStore();
+  const { theme } = useTheme();
+  const isNight = theme === 'dark';
   const controlsRef = useRef<any>(null);
 
   return (
     <div className="w-full h-full relative bg-background rounded-xl overflow-hidden border border-border">
-      <Canvas camera={{ position: [0, 3, 6], fov: 45 }}>
+      {/* Camera / Framing: Centered on Earth, scaled correctly */}
+      <Canvas camera={{ position: [0, 4, 8], fov: 45 }}>
         <color attach="background" args={['#050810']} />
-        <ambientLight intensity={0.2} />
-        <pointLight position={[10, 10, 10]} intensity={1.5} color="#ffffff" />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#4a5bdc" />
-        
-        <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
-        
-        <Earth />
 
+        {/* Lighting: bright sun for day map, dimmed so night city lights stand out */}
+        <ambientLight intensity={isNight ? 0.15 : 0.4} />
+        <directionalLight position={[10, 5, 5]} intensity={isNight ? 0.8 : 3.0} color="#ffffff" />
+        {/* Backlight for subtle rim lighting on the dark side */}
+        <pointLight position={[-10, -5, -5]} intensity={isNight ? 0.4 : 1.5} color="#4a5bdc" />
+
+        <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
+
+        {/* Earth with Suspense for texture loading */}
+        <Suspense fallback={<EarthFallback />}>
+          <EarthTextured />
+        </Suspense>
+
+        {/* Orbit geometries */}
         {layers.orbits && (
-          <>
+          <group>
             <OrbitPath radius={LEO_RADIUS} color="#4a5bdc" />
             <OrbitPath radius={MEO_RADIUS} color="#00e5ff" />
             <OrbitPath radius={GEO_RADIUS} color="#9d4edd" />
-          </>
+          </group>
         )}
 
-        {layers.satellites && satellites.map((sat) => (
-          <SatelliteMarker
-            key={sat.id}
-            satellite={sat}
-            isSelected={selectedSatelliteId === sat.id}
-            onClick={() => setSelectedSatelliteId(sat.id)}
-            showLabels={layers.labels}
-            showTelemetry={layers.telemetry}
-          />
-        ))}
+        {/* Satellite Objects */}
+        {layers.satellites && (
+          <group>
+            {satellites.map((sat) => (
+              <SatelliteMarker
+                key={sat.id}
+                satellite={sat}
+                isSelected={selectedSatelliteId === sat.id}
+                onClick={() => setSelectedSatelliteId(sat.id)}
+                showLabels={layers.labels}
+                showTelemetry={layers.telemetry}
+              />
+            ))}
+          </group>
+        )}
 
-        <OrbitControls 
+        {/* Camera controls */}
+        <OrbitControls
           ref={controlsRef}
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
           autoRotate={!selectedSatelliteId}
           autoRotateSpeed={0.5}
-          maxDistance={15}
-          minDistance={2}
+          maxDistance={20}
+          minDistance={3}
+          target={[0, 0, 0]} // Explicitly target Earth at (0,0,0)
         />
       </Canvas>
     </div>
