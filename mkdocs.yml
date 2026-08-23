@@ -1,0 +1,245 @@
+site_name: "CelestIQ · Orbital Intelligence Platform"
+site_url: https://celestiq.dev
+site_description: >-
+  CelestIQ — An intelligent collision-avoidance decision-support and manoeuvre
+  optimisation platform for satellite operators. Complete documentation covering
+  architecture, algorithms, API contracts, and developer guides.
+site_author: CelestIQ Team
+repo_url: https://github.com/Shivanshi388/CelestIQ
+repo_name: CelestIQ
+edit_uri: edit/main/docs/
+docs_dir: docs
+site_dir: site
+
+copyright: >-
+  &copy; 2025 CelestIQ Team &mdash;
+  <em>Educational &amp; Research Prototype. Not an operational flight-safety system.</em>
+
+nav:
+  - 🏠 Home: README.md
+  - 🚀 Getting Started:
+      - Overview: OVERVIEW.md
+      - Quick Start: QUICKSTART.md
+      - Installation: INSTALLATION.md
+      - Configuration: CONFIGURATION.md
+  - 🏗️ Architecture:
+      - System Architecture: ARCHITECTURE.md
+      - Data Flow: DATA_FLOW.md
+      - System Design: SYSTEM_DESIGN.md
+      - Design Decisions: DESIGN_DECISIONS.md
+      - Project Structure: PROJECT_STRUCTURE.md
+  - 🧠 Algorithms:
+      - Algorithm Reference: ALGORITHM.md
+      - Risk Scoring: RISK_SCORING.md
+      - Orbit Propagation: ORBIT_PROPAGATION.md
+      - Conjunction Detection: CONJUNCTION_DETECTION.md
+      - Manoeuvre Optimisation: MANOEUVRE_OPTIMISATION.md
+  - 🔌 API Reference:
+      - API Contract: API_CONTRACT.md
+      - Endpoints: API_ENDPOINTS.md
+      - Authentication & Auth: AUTHENTICATION.md
+      - Error Codes: ERROR_CODES.md
+  - 🗄️ Data:
+      - Data Sources: DATA_SOURCES.md
+      - Database Schema: DATABASE.md
+  - 🖥️ Frontend:
+      - UI & UX Guide: UI_UX.md
+      - Components: COMPONENTS.md
+      - User Flows: USER_FLOWS.md
+  - 🔒 Security:
+      - Security Policy: SECURITY.md
+      - Threat Model: THREAT_MODEL.md
+  - 🧪 Testing:
+      - Testing Guide: TESTING.md
+      - Test Strategy: TEST_STRATEGY.md
+      - Troubleshooting: TROUBLESHOOTING.md
+  - 🤝 Contributing:
+      - How to Contribute: CONTRIBUTING.md
+      - Code of Conduct: CODE_OF_CONDUCT.md
+      - Changelog: CHANGELOG.md
+  - 🗺️ Roadmap:
+      - Roadmap: ROADMAP.md
+      - Team Workplan: TEAM_WORKPLAN.md
+      - File Ownership: FILE_OWNERSHIP.md
+  - 🎥 Demo:
+      - Demo Script: DEMO_SCRIPT.md
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  logo: assets/celestiq-logo.svg
+  favicon: assets/favicon.png
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+  icon:
+    repo: fontawesome/brands/github
+    admonition:
+      note: octicons/tag-16
+      abstract: octicons/checklist-16
+      info: octicons/info-16
+      tip: octicons/squirrel-16
+      success: octicons/check-16
+      question: octicons/question-16
+      warning: octicons/alert-16
+      failure: octicons/x-circle-16
+      danger: octicons/zap-16
+      bug: octicons/bug-16
+      example: octicons/beaker-16
+      quote: octicons/quote-16
+
+  palette:
+    # ── Light Mode ──────────────────────────────────────────────────────────
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    # ── Dark Mode ───────────────────────────────────────────────────────────
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+  features:
+    # Navigation
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+
+    # Table of contents
+    - toc.follow
+
+    # Search
+    - search.highlight
+    - search.share
+    - search.suggest
+
+    # Content
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - content.tooltips
+
+    # Header
+    - header.autohide
+
+    # Announce
+    - announce.dismiss
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: "100%"
+      height: auto
+      zoomable: true
+      draggable: true
+      skip_classes:
+        - skip-lightbox
+      auto_caption: false
+      caption_position: bottom
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+      locale: en
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+  - macros
+  - awesome-pages
+
+extra:
+  status:
+    new: Recently added
+    deprecated: Deprecated
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Shivanshi388/CelestIQ
+      name: CelestIQ on GitHub
+  analytics:
+    provider: google
+    property: G-XXXXXXXXXX  # <-- replace with your GA4 property ID
+  generator: false
+
+extra_css:
+  - assets/stylesheets/custom.css
+
+extra_javascript:
+  - assets/javascripts/animations.js
+  - assets/javascripts/particles.js
+
+markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: Anchor link to this section for reference
+      toc_depth: 3
+
+  # PyMdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: Shivanshi388
+      repo: CelestIQ
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      auto_append:
+        - includes/mkdocs.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
