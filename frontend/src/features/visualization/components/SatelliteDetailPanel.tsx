@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, Satellite as SatelliteIcon } from 'lucide-react';
 import { useVisualizationStore } from '@/store/visualization.store';
 import { mockSatellites } from '@/services/mock/satellites.mock';
@@ -42,14 +43,26 @@ export function SatelliteDetailPanel() {
   if (!satellite) return null;
 
   return createPortal(
-    <div
-      ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-center justify-end bg-black/40 backdrop-blur-sm"
-      onClick={(e) => {
-        if (e.target === overlayRef.current) setExpandedSatelliteId(null);
-      }}
-    >
-      <div className="h-full w-full max-w-md glass-panel p-6 overflow-y-auto animate-in slide-in-from-right">
+    <AnimatePresence>
+      <motion.div
+        key="satellite-detail-overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.15 }}
+        ref={overlayRef}
+        className="fixed inset-0 z-50 flex items-center justify-end bg-black/40 backdrop-blur-sm"
+        onClick={(e) => {
+          if (e.target === overlayRef.current) setExpandedSatelliteId(null);
+        }}
+      >
+        <motion.div
+          initial={{ x: '100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '100%' }}
+          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+          className="h-full w-full max-w-md glass-panel p-6 overflow-y-auto"
+        >
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
@@ -130,8 +143,9 @@ export function SatelliteDetailPanel() {
             </div>
           )}
         </div>
-      </div>
-    </div>,
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>,
     document.body
   );
 }
