@@ -1,0 +1,6 @@
+{
+  "users": [
+    { "username": "admin", "password": "password123", "name": "Mission Control Officer", "role": "Admin" },
+    { "username": "operator", "password": "password123", "name": "Sentinel Operator", "role": "Operator" }
+  ]
+}
