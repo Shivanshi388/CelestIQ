@@ -3,6 +3,7 @@ import { DashboardOverview } from '@/features/dashboard/components/DashboardOver
 import { LiveMissionFeed } from '@/features/dashboard/components/LiveMissionFeed';
 import { OrbitVisualization } from '@/features/visualization/components/OrbitVisualization';
 import { OrbitControlsOverlay } from '@/features/visualization/components/OrbitControls';
+import { SatelliteDetailPanel } from '@/features/visualization/components/SatelliteDetailPanel';
 
 
 export default function DashboardPage() {
@@ -24,6 +25,7 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+      <SatelliteDetailPanel />
     </PageContainer>
   );
 }
