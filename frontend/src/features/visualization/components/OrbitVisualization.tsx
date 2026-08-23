@@ -12,7 +12,7 @@ const EARTH_RADIUS = 1.2;
 const LEO_RADIUS = 2.0;
 const MEO_RADIUS = 3.5;
 const GEO_RADIUS = 5.0;
-const AGENT_RADIUS = 2.75; // Between LEO and MEO
+
 
 // ---------------------------------------------------------------------------
 // 1. EARTH — Textured sphere using useTexture (Suspense boundary handles loading)

@@ -1,8 +1,6 @@
-import { Bell, Menu, Search, ChevronDown, User } from 'lucide-react';
+import { Bell, Menu, Search, ChevronDown } from 'lucide-react';
 import { useAuthStore } from '@/store/auth.store';
 import { useUIStore } from '@/store/ui.store';
-import { Badge } from '../ui/Badge';
-import { Button } from '../ui/Button';
 
 export function Header() {
   const { user } = useAuthStore();

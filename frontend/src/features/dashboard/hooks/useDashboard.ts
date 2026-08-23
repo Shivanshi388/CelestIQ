@@ -3,7 +3,7 @@ import { mockMissionEvents, mockSystemStatus } from '@/services/mock/dashboard.m
 import { MissionEvent } from '@/types/mission';
 
 export function useDashboard() {
-  const [events, setEvents] = useState<MissionEvent[]>(mockMissionEvents);
+  const [events] = useState<MissionEvent[]>(mockMissionEvents);
   const [systemStatus, setSystemStatus] = useState(mockSystemStatus);
 
   useEffect(() => {
