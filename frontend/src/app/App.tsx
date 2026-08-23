@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { Topbar } from '../components/Topbar';
@@ -5,8 +6,25 @@ import { DashboardHome } from '../pages/DashboardHome';
 import { OrbitView } from '../pages/OrbitView';
 import { AlertsView } from '../pages/AlertsView';
 import { ManeuversView } from '../pages/ManeuversView';
+import { UnauthorizedPage } from '../pages/UnauthorizedPage';
+import { LoginPage } from '../pages/LoginPage';
+import { useAuthStore } from '../store/auth.store';
 
 function App() {
+  const { isAuthenticated, user, initDb } = useAuthStore();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      initDb();
+    }
+  }, [isAuthenticated, initDb]);
+
+  if (!isAuthenticated) {
+    return <LoginPage />;
+  }
+
+  const isGuest = user?.role === 'Guest';
+
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-[var(--text-main)] transition-colors duration-300">
       {/* Sidebar fixed on the left */}
@@ -25,9 +43,25 @@ function App() {
         <main className="flex-1 overflow-y-auto p-5 z-10">
           <Routes>
             <Route path="/" element={<DashboardHome />} />
-            <Route path="/3d" element={<OrbitView />} />
-            <Route path="/alerts" element={<AlertsView />} />
-            <Route path="/maneuvers" element={<ManeuversView />} />
+            <Route path="/3d" element={isGuest ? <UnauthorizedPage /> : <OrbitView />} />
+            <Route 
+              path="/alerts" 
+              element={isGuest ? (
+                <UnauthorizedPage 
+                  title="Alerts & Risk Locked" 
+                  message="Guest users are restricted from viewing detailed risk assessments and critical system alerts. Please authenticate using authorized credentials to view system alerts." 
+                />
+              ) : <AlertsView />} 
+            />
+            <Route 
+              path="/maneuvers" 
+              element={isGuest ? (
+                <UnauthorizedPage 
+                  title="Maneuver Compare Locked" 
+                  message="Guest users are restricted from analyzing orbital maneuver comparisons and telemetry forecasts. Please authenticate using authorized credentials to view maneuver operations." 
+                />
+              ) : <ManeuversView />} 
+            />
           </Routes>
         </main>
       </div>

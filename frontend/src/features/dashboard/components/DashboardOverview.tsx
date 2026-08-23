@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import { useOrbitData } from '@/features/visualization/hooks/useOrbitData';
 import { useDashboard } from '@/features/dashboard/hooks/useDashboard';
 import { useAlerts } from '@/features/alerts/hooks/useAlerts';

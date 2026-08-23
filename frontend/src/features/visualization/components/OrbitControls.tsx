@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Pause, Play, Maximize, Layers, LocateFixed } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { useOrbitData } from '../hooks/useOrbitData';
@@ -6,8 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export function OrbitControlsOverlay() {
   const { isPaused, setIsPaused } = useOrbitData();
-  const { isRealTimeTracking, toggleRealTimeTracking, toggleLayer, layers, selectedSatelliteId } = useVisualizationStore();
-  const [showLayers, setShowLayers] = React.useState(false);
+  const { isRealTimeTracking, toggleRealTimeTracking, toggleLayer, layers } = useVisualizationStore();
+  const [showLayers, setShowLayers] = useState(false);
 
   return (
     <div className="absolute inset-0 pointer-events-none p-4 flex flex-col justify-between">
