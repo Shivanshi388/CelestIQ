@@ -1,6 +1,7 @@
 import { PageContainer } from '@/components/layout/PageContainer';
 import { OrbitVisualization } from '@/features/visualization/components/OrbitVisualization';
 import { OrbitControlsOverlay } from '@/features/visualization/components/OrbitControls';
+import { SatelliteDetailPanel } from '@/features/visualization/components/SatelliteDetailPanel';
 
 export default function VisualizationPage() {
   return (
@@ -9,6 +10,7 @@ export default function VisualizationPage() {
         <OrbitVisualization />
         <OrbitControlsOverlay />
       </div>
+      <SatelliteDetailPanel />
     </PageContainer>
   );
 }
