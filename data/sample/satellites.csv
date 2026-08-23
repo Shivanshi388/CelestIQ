@@ -1,0 +1,3 @@
+object_id,name,epoch,x,y,z,vx,vy,vz
+SAT-001,Celestiq-Alpha,2026-08-20T12:00:00Z,6700.0,0.0,0.0,0.0,7.67,0.0
+SAT-002,Celestiq-Beta,2026-08-20T12:00:00Z,6800.0,100.5,50.2,0.0,7.55,0.1
