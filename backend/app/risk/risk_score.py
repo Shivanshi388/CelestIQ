@@ -7,8 +7,9 @@ def calculate_risk_score(
     Calculates a final Threat Score (0 to 100).
     asset_priority: 1 (Expendable) to 5 (Critical Infrastructure). Default is 3.
     """
-    # Start with the raw probability percentage
-    base_score = probability_percent
+    # Start with the raw probability percentage, scaled up because
+    # the 10m hard-body math yields very small percentages (max ~0.004%)
+    base_score = probability_percent * 25000
     
     # Time Multiplier: Emergencies under 15 minutes scale up the panic
     time_multiplier = 1.0
