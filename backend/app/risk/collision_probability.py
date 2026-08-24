@@ -9,14 +9,14 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from app.orbit.uncertainty import generate_error_ellipsoid
 
-def calculate_collision_probability(miss_distance_km: float, error_radius_km: float) -> float:
-    """Calculates Probability of Collision (Pc) using a Gaussian distribution."""
+def calculate_collision_probability(miss_distance_km: float, error_radius_km: float, hard_body_radius_km: float = 0.01) -> float:
+    """Calculates Probability of Collision (Pc) using a 2D Gaussian probability density function."""
     if error_radius_km == 0:
         return 0.0
     
-    # Calculate Gaussian probability
+    # Calculate standard 2D Gaussian probability with a hard body radius
     exponent = -(miss_distance_km**2) / (2 * (error_radius_km**2))
-    pc = math.exp(exponent)
+    pc = ( (hard_body_radius_km**2) / (2 * (error_radius_km**2)) ) * math.exp(exponent)
     return pc
 
 def evaluate_risk(miss_distance_km: float, time_to_impact_mins: int) -> dict:
@@ -26,14 +26,15 @@ def evaluate_risk(miss_distance_km: float, time_to_impact_mins: int) -> dict:
     error_radius = ellipsoid["total_error_radius"]
     
     # 2. Calculate the raw probability
-    pc = calculate_collision_probability(miss_distance_km, error_radius)
-    pc_percentage = round(pc * 100, 4)
+    pc = calculate_collision_probability(miss_distance_km, error_radius, hard_body_radius_km=0.01)
+    pc_percentage = round(pc * 100, 6)
     
     # 3. Categorize the threat
-    if pc >= 0.01:
+    # Note: With a 10m hard body radius, max Pc is around 4e-5.
+    if pc >= 0.00001:
         category = "CRITICAL"
         action = "Initiate Avoidance Maneuver"
-    elif pc >= 0.0001:
+    elif pc >= 0.000001:
         category = "ELEVATED"
         action = "Monitor Closely"
     else:
