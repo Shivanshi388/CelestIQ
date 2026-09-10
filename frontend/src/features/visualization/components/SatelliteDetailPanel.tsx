@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Satellite as SatelliteIcon } from 'lucide-react';
+import { X, Satellite as SatelliteIcon, Box } from 'lucide-react';
 import { useVisualizationStore } from '@/store/visualization.store';
 import { mockSatellites } from '@/services/mock/satellites.mock';
 import { mockManeuvers } from '@/services/mock/maneuvers.mock';
@@ -19,6 +19,11 @@ const RISK_COLORS: Record<string, string> = {
   High: 'text-danger',
 };
 
+const TYPE_COLORS: Record<string, string> = {
+  SATELLITE: 'text-primary',
+  DEBRIS: 'text-warning',
+};
+
 export function SatelliteDetailPanel() {
   const { expandedSatelliteId, setExpandedSatelliteId } = useVisualizationStore();
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -26,6 +31,9 @@ export function SatelliteDetailPanel() {
   const satellite = expandedSatelliteId
     ? mockSatellites.find((s) => s.id === expandedSatelliteId) ?? null
     : null;
+
+  const objectType = satellite?.type ?? 'SATELLITE';
+  const isDebris = objectType === 'DEBRIS';
 
   const associatedManeuvers = satellite
     ? mockManeuvers.filter((m) => m.satelliteId === satellite.id)
@@ -66,8 +74,12 @@ export function SatelliteDetailPanel() {
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
-              <SatelliteIcon className="w-5 h-5 text-primary" />
+            <div className={`w-9 h-9 rounded-xl ${isDebris ? 'bg-warning/10' : 'bg-primary/10'} flex items-center justify-center`}>
+              {isDebris ? (
+                <Box className="w-5 h-5 text-warning" />
+              ) : (
+                <SatelliteIcon className="w-5 h-5 text-primary" />
+              )}
             </div>
             <div>
               <h2 className="text-lg font-semibold text-foreground">{satellite.name}</h2>
@@ -80,6 +92,14 @@ export function SatelliteDetailPanel() {
           >
             <X className="w-4 h-4" />
           </button>
+        </div>
+
+        {/* Object Type */}
+        <div className="mb-5">
+          <div className="text-[10px] text-muted font-semibold uppercase tracking-wider mb-2">Object Type</div>
+          <div className={`text-sm font-semibold ${TYPE_COLORS[objectType] ?? 'text-muted'}`}>
+            {objectType}
+          </div>
         </div>
 
         {/* Status */}
@@ -104,14 +124,42 @@ export function SatelliteDetailPanel() {
           </div>
         </div>
 
-        {/* Telemetry */}
-        <div className="mb-5">
-          <div className="text-[10px] text-muted font-semibold uppercase tracking-wider mb-3">Telemetry</div>
-          <div className="grid grid-cols-2 gap-2">
-            <InfoRow label="Battery" value={`${satellite.battery.toFixed(0)}%`} />
-            <InfoRow label="Signal" value={satellite.signalStrength} />
+        {/* Physical Properties (for collision analysis) */}
+        {satellite.physical && (
+          <div className="mb-5">
+            <div className="text-[10px] text-muted font-semibold uppercase tracking-wider mb-3">Physical Properties</div>
+            <div className="grid grid-cols-2 gap-2">
+              <InfoRow label="Mass" value={`${satellite.physical.mass_kg.toFixed(1)} kg`} />
+              <InfoRow label="Cross-Section" value={`${satellite.physical.cross_section_m2.toFixed(2)} m²`} />
+              <InfoRow label="Cd (Drag)" value={satellite.physical.cd.toFixed(1)} />
+              <InfoRow label="Cr (SRP)" value={satellite.physical.cr.toFixed(1)} />
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Position Covariance (for uncertainty analysis) */}
+        {satellite.covariance && (
+          <div className="mb-5">
+            <div className="text-[10px] text-muted font-semibold uppercase tracking-wider mb-3">Position Covariance</div>
+            <div className="grid grid-cols-2 gap-2">
+              <InfoRow label="σx" value={`${Math.sqrt(satellite.covariance.xx * 1000).toFixed(1)} m`} />
+              <InfoRow label="σy" value={`${Math.sqrt(satellite.covariance.yy * 1000).toFixed(1)} m`} />
+              <InfoRow label="σz" value={`${Math.sqrt(satellite.covariance.zz * 1000).toFixed(1)} m`} />
+              <InfoRow label="Total σ" value={`${Math.sqrt((satellite.covariance.xx + satellite.covariance.yy + satellite.covariance.zz) * 1000).toFixed(1)} m`} />
+            </div>
+          </div>
+        )}
+
+        {/* Telemetry - only show for satellites with battery data */}
+        {!isDebris && (
+          <div className="mb-5">
+            <div className="text-[10px] text-muted font-semibold uppercase tracking-wider mb-3">Telemetry</div>
+            <div className="grid grid-cols-2 gap-2">
+              <InfoRow label="Battery" value={`${satellite.battery.toFixed(0)}%`} />
+              <InfoRow label="Signal" value={satellite.signalStrength} />
+            </div>
+          </div>
+        )}
 
         {/* Associated Maneuvers */}
         <div>
@@ -119,7 +167,7 @@ export function SatelliteDetailPanel() {
             Associated Maneuvers ({associatedManeuvers.length})
           </div>
           {associatedManeuvers.length === 0 ? (
-            <div className="text-xs text-muted/60 italic">No maneuvers linked to this satellite.</div>
+            <div className="text-xs text-muted/60 italic">No maneuvers linked to this object.</div>
           ) : (
             <div className="flex flex-col gap-2">
               {associatedManeuvers.map((maneuver) => (

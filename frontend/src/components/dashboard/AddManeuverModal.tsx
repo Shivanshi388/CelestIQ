@@ -125,6 +125,7 @@ export function AddManeuverModal({
       orbitType: form.orbitType,
       celestialBodyId: 'earth', // default to Earth for user-created maneuvers
       status: 'Active',
+      type: 'SATELLITE',
       semiMajorAxis,
       inclination: form.inclination,
       raan: form.raan,

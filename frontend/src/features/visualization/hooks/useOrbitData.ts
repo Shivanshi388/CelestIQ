@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Satellite } from '@/types/satellite';
+import { Satellite, TrackedObjectType } from '@/types/satellite';
 import { mockSatellites } from '@/services/mock/satellites.mock';
 
 const ADDED_SATELLITES_KEY = 'added_satellites';
@@ -13,7 +13,11 @@ function parseAddedSatellites(stored: string): Satellite[] {
   try {
     const parsed = JSON.parse(stored);
     if (Array.isArray(parsed)) {
-      return parsed as Satellite[];
+      // Ensure each satellite has a type field (backward compat with old localStorage data)
+      return parsed.map((sat: any) => ({
+        ...sat,
+        type: sat.type ?? ('SATELLITE' as TrackedObjectType),
+      })) as Satellite[];
     }
     return [];
   } catch {
@@ -36,7 +40,10 @@ function getAddedSatellites(): Satellite[] {
 // ---------------------------------------------------------------------------
 
 /**
- * Returns all satellites (mock + user-added) filtered by the given celestial body.
+ * Returns all tracked objects (satellites + debris from mock + user-added)
+ * filtered by the given celestial body.
+ *
+ * Each object has a `type` field: 'SATELLITE' or 'DEBRIS'.
  *
  * TODO(BACKEND): Replace mock data with GET /api/satellites?celestialBodyId=...
  */
@@ -60,13 +67,24 @@ export function useOrbitData(celestialBodyId: string) {
   // Filter by celestial body
   const satellites = allSatellites.filter((sat) => sat.celestialBodyId === celestialBodyId);
 
-  // Simulate telemetry updates
+  // Simulate telemetry updates (only for satellites with battery > 0)
   useEffect(() => {
     if (isPaused) return;
 
     const interval = setInterval(() => {
       setAllSatellites((prev) =>
         prev.map((sat) => {
+          // Skip debris telemetry updates (battery is 0 for debris)
+          if (sat.type === 'DEBRIS' || sat.battery === 0) {
+            return {
+              ...sat,
+              position: {
+                ...sat.position,
+                angle: sat.position.angle + 0.01,
+              },
+            };
+          }
+
           const fuelFluctuation = (Math.random() - 0.7) * 0.05;
           const altFluctuation = (Math.random() - 0.5) * 0.2;
 
