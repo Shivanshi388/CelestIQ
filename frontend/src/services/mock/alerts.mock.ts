@@ -51,5 +51,27 @@ export const mockAlerts: Alert[] = [
     status: 'Active',
     timestamp: new Date(Date.now() - 1000 * 60 * 120).toISOString(),
     description: 'Thermal sensors indicate battery cell temperature exceeding optimal range.',
-  }
+  },
+  {
+    id: 'alt-06',
+    title: '2009 Collision Debris Cloud',
+    satelliteId: 'iridium-33',
+    satelliteName: 'IRIDIUM 33',
+    severity: 'Critical',
+    status: 'Monitoring',
+    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+    description: 'Debris cloud from 2009 Iridium-Cosmos collision. 8+ tracked fragments in LEO.',
+    recommendedAction: 'Monitor conjunction risks for active satellites in 780-850 km altitude range.',
+  },
+  {
+    id: 'alt-07',
+    title: 'Debris Conjunction Alert',
+    satelliteId: 'cosmos-2251',
+    satelliteName: 'COSMOS 2251',
+    severity: 'High',
+    status: 'Active',
+    timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+    description: 'Active debris from Cosmos 2251 fragments approaching ISS orbital plane.',
+    recommendedAction: 'Run conjunction analysis and prepare avoidance maneuver if needed.',
+  },
 ];

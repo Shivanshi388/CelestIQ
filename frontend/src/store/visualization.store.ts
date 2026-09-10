@@ -15,6 +15,7 @@ interface VisualizationState {
   toggleRealTimeTracking: () => void;
   layers: {
     satellites: boolean;
+    debris: boolean;
     orbits: boolean;
     labels: boolean;
     telemetry: boolean;
@@ -46,6 +47,7 @@ export const useVisualizationStore = create<VisualizationState>()(
       toggleRealTimeTracking: () => set((state) => ({ isRealTimeTracking: !state.isRealTimeTracking })),
       layers: {
         satellites: true,
+        debris: true,
         orbits: true,
         labels: true,
         telemetry: true,

@@ -10,6 +10,7 @@
 // For now, all operations use localStorage as a local mock store.
 
 import { Maneuver } from '@/types/maneuver';
+import { Satellite, TrackedObjectType } from '@/types/satellite';
 import { mockManeuvers } from '@/services/mock/maneuvers.mock';
 
 const ADDED_MANEUVERS_KEY = 'maneuvers_added';
@@ -82,7 +83,12 @@ export async function createManeuver(
   // If a satellite was provided, also store it so the 3D view picks it up
   if (satellite) {
     const existing = getAddedSatellites();
-    existing.push(satellite as unknown as Record<string, unknown>);
+    // Ensure the satellite has a type field (default to SATELLITE)
+    const satelliteWithType = {
+      ...satellite,
+      type: (satellite as any).type ?? 'SATELLITE' as TrackedObjectType,
+    };
+    existing.push(satelliteWithType as unknown as Record<string, unknown>);
     saveAddedSatellites(existing);
   }
 

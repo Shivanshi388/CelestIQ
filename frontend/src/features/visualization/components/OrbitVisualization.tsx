@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { useOrbitData } from '../hooks/useOrbitData';
 import { useVisualizationStore } from '@/store/visualization.store';
 import { useTheme } from '@/context/ThemeContext';
-import { Satellite } from '@/types/satellite';
+import { Satellite, TrackedObjectType } from '@/types/satellite';
 import { createOrbitPath, orbitalToPosition, orbitalAngularSpeed } from '../lib/orbitalGeometry';
 import { mockCelestialBodies } from '@/services/mock/celestialBodies.mock';
 
@@ -130,11 +130,11 @@ function GenericBody({ body }: { body: { name: string; radius: number; color: st
 // 2. ORBIT GEOMETRY — proper inclination/RAAN/eccentricity
 // ---------------------------------------------------------------------------
 
-function OrbitPathLine({ path }: { path: THREE.Vector3[] }) {
+function OrbitPathLine({ path, color = '#4a9eff' }: { path: THREE.Vector3[]; color?: string }) {
   return (
     <Line
       points={path}
-      color="#4a9eff"
+      color={color}
       lineWidth={1.2}
       transparent
       opacity={0.35}
@@ -168,6 +168,7 @@ function SatelliteMarker({
   const angleRef = useRef(satellite.position.angle);
 
   const speed = orbitalAngularSpeed(satellite.semiMajorAxis);
+  const isDebris = satellite.type === 'DEBRIS';
 
   useFrame((_state, delta) => {
     angleRef.current += delta * speed;
@@ -190,14 +191,23 @@ function SatelliteMarker({
 
   const isSelected = selectedSatelliteIds.includes(satellite.id);
 
-  const color = satellite.orbitType === 'LEO' ? '#4a5bdc'
+  // Debris uses orange/red tones; satellites use blue/cyan/purple
+  const color = isDebris
+    ? '#ff6b35'
+    : satellite.orbitType === 'LEO' ? '#4a5bdc'
     : satellite.orbitType === 'MEO' ? '#00e5ff'
     : '#9d4edd';
 
+  const markerScale = isDebris ? 0.6 : 1.0;
+
   return (
     <group ref={groupRef} onClick={(e) => { e.stopPropagation(); onClick(); }}>
-      <mesh>
-        <octahedronGeometry args={[0.04, 0]} />
+      <mesh scale={markerScale}>
+        {isDebris ? (
+          <boxGeometry args={[0.04, 0.04, 0.04]} />
+        ) : (
+          <octahedronGeometry args={[0.04, 0]} />
+        )}
         <meshStandardMaterial
           color="#ffffff"
           emissive={isSelected ? '#ffffff' : color}
@@ -206,14 +216,16 @@ function SatelliteMarker({
         />
       </mesh>
 
-      <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.1, 0.008, 16, 32]} />
-        <meshStandardMaterial
-          color={color}
-          emissive={color}
-          emissiveIntensity={isSelected ? 1.5 : 0.8}
-        />
-      </mesh>
+      {!isDebris && (
+        <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.1, 0.008, 16, 32]} />
+          <meshStandardMaterial
+            color={color}
+            emissive={color}
+            emissiveIntensity={isSelected ? 1.5 : 0.8}
+          />
+        </mesh>
+      )}
 
       {(showLabels || isSelected) && (
         <Html
@@ -243,7 +255,7 @@ function SatelliteMarker({
                 className="text-[8px] uppercase tracking-wider leading-none mt-[1px]"
                 style={{ color: 'rgba(255,255,255,0.7)' }}
               >
-                {satellite.orbitType} · inc {satellite.inclination.toFixed(1)}°
+                {isDebris ? 'DEBRIS' : satellite.orbitType} · inc {satellite.inclination.toFixed(1)}°
               </div>
             </div>
           </div>
@@ -268,9 +280,19 @@ export function OrbitVisualization() {
   const body = mockCelestialBodies.find((b) => b.id === selectedCelestialBodyId) ?? mockCelestialBodies[0];
   const isEarth = body.id === 'earth';
 
-  // Pre-compute orbit paths for each satellite
-  const orbitPaths = useMemo(() => {
-    return satellites.map((sat) => ({
+  // Separate satellites from debris
+  const activeSatellites = useMemo(
+    () => satellites.filter((s) => s.type !== 'DEBRIS'),
+    [satellites],
+  );
+  const debrisObjects = useMemo(
+    () => satellites.filter((s) => s.type === 'DEBRIS'),
+    [satellites],
+  );
+
+  // Pre-compute orbit paths for satellites
+  const satelliteOrbitPaths = useMemo(() => {
+    return activeSatellites.map((sat) => ({
       id: sat.id,
       path: createOrbitPath(
         sat.semiMajorAxis,
@@ -280,7 +302,21 @@ export function OrbitVisualization() {
         128,
       ),
     }));
-  }, [satellites]);
+  }, [activeSatellites]);
+
+  // Pre-compute orbit paths for debris
+  const debrisOrbitPaths = useMemo(() => {
+    return debrisObjects.map((deb) => ({
+      id: deb.id,
+      path: createOrbitPath(
+        deb.semiMajorAxis,
+        deb.eccentricity,
+        deb.inclination,
+        deb.raan,
+        128,
+      ),
+    }));
+  }, [debrisObjects]);
 
   return (
     <div className="w-full h-full relative bg-background rounded-xl overflow-hidden border border-border">
@@ -303,21 +339,39 @@ export function OrbitVisualization() {
 
         {layers.orbits && (
           <group>
-            {orbitPaths.map((op) => (
+            {satelliteOrbitPaths.map((op) => (
               <OrbitPathLine key={op.id} path={op.path} />
+            ))}
+            {layers.debris && debrisOrbitPaths.map((op) => (
+              <OrbitPathLine key={op.id} path={op.path} color="#ff6b35" />
             ))}
           </group>
         )}
 
         {layers.satellites && (
           <group>
-            {satellites.map((sat) => (
+            {activeSatellites.map((sat) => (
               <SatelliteMarker
                 key={sat.id}
                 satellite={sat}
                 selectedSatelliteIds={selectedSatelliteIds}
                 onClick={() => toggleSelectedSatelliteId(sat.id)}
                 onLabelClick={() => setExpandedSatelliteId(sat.id)}
+                showLabels={layers.labels}
+              />
+            ))}
+          </group>
+        )}
+
+        {layers.debris && (
+          <group>
+            {debrisObjects.map((deb) => (
+              <SatelliteMarker
+                key={deb.id}
+                satellite={deb}
+                selectedSatelliteIds={selectedSatelliteIds}
+                onClick={() => toggleSelectedSatelliteId(deb.id)}
+                onLabelClick={() => setExpandedSatelliteId(deb.id)}
                 showLabels={layers.labels}
               />
             ))}
