@@ -10,7 +10,7 @@
 // For now, all operations use localStorage as a local mock store.
 
 import { Maneuver } from '@/types/maneuver';
-import { Satellite, TrackedObjectType } from '@/types/satellite';
+import { TrackedObjectType } from '@/types/satellite';
 import { mockManeuvers } from '@/services/mock/maneuvers.mock';
 
 const ADDED_MANEUVERS_KEY = 'maneuvers_added';

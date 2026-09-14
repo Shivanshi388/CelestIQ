@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Flame, ShieldAlert, Wifi, BatteryWarning } from 'lucide-react';
-
+import { useState, useEffect } from 'react';
+import { Flame, ShieldAlert, BatteryWarning } from 'lucide-react';
 // Define the shape of the data coming from your Python backend
 interface BackendRisk {
   object_id: string;

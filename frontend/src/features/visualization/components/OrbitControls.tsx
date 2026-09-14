@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pause, Play, Maximize, Layers, LocateFixed, Globe } from 'lucide-react';
+import { Maximize, Layers, LocateFixed, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { useVisualizationStore } from '@/store/visualization.store';
 import { mockCelestialBodies } from '@/services/mock/celestialBodies.mock';

@@ -5,7 +5,7 @@ import { useAlerts } from '@/features/alerts/hooks/useAlerts';
 import { motion } from 'framer-motion';
 
 export function DashboardOverview() {
-  const { satellites } = useOrbitData();
+  const { satellites } = useOrbitData('earth');
   const { systemStatus } = useDashboard();
   const { allAlerts } = useAlerts();
 

@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { useOrbitData } from '../hooks/useOrbitData';
 import { useVisualizationStore } from '@/store/visualization.store';
 import { useTheme } from '@/context/ThemeContext';
-import { Satellite, TrackedObjectType } from '@/types/satellite';
+import { Satellite } from '@/types/satellite';
 import { createOrbitPath, orbitalToPosition, orbitalAngularSpeed } from '../lib/orbitalGeometry';
 import { mockCelestialBodies } from '@/services/mock/celestialBodies.mock';
 
@@ -272,7 +272,7 @@ function SatelliteMarker({
 export function OrbitVisualization() {
   const { selectedCelestialBodyId } = useVisualizationStore();
   const { satellites } = useOrbitData(selectedCelestialBodyId);
-  const { selectedSatelliteId, setSelectedSatelliteId, selectedSatelliteIds, toggleSelectedSatelliteId, setExpandedSatelliteId, layers } = useVisualizationStore();
+  const { selectedSatelliteId, selectedSatelliteIds, toggleSelectedSatelliteId, setExpandedSatelliteId, layers } = useVisualizationStore();
   const { theme } = useTheme();
   const isNight = theme === 'dark';
   const controlsRef = useRef<any>(null);
