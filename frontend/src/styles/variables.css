@@ -1,31 +1,37 @@
 :root {
-  --background-rgb: 245 247 252; /* #F5F7FC - very light blue-white */
-  --surface-rgb: 255 255 255; /* #FFFFFF - pure white cards */
-  --surface-light-rgb: 248 250 255; /* #F8FAFF - secondary light surface */
-  --primary-rgb: 49 85 231; /* #3155E7 - premium aerospace blue */
-  --secondary-rgb: 109 69 232; /* #6D45E8 - royal indigo */
-  --accent-rgb: 34 167 214; /* #22A7D6 - cyan/teal highlight */
-  --success-rgb: 16 185 129;
-  --warning-rgb: 245 158 11;
-  --danger-rgb: 239 68 68;
-  --muted-rgb: 100 116 139;
-  --border: rgba(49, 85, 231, 0.08);
-  --text-main: #0A1128; /* Premium Dark Navy */
-  --shadow: 0 8px 30px rgba(30, 50, 100, 0.06);
+  --background-rgb: 247 246 243;
+  --surface-rgb: 255 255 253;
+  --surface-light-rgb: 239 238 234;
+
+  --primary-rgb: 214 76 56;
+  --secondary-rgb: 239 116 72;
+  --accent-rgb: 232 166 61;
+
+  --success-rgb: 42 145 93;
+  --warning-rgb: 218 145 38;
+  --danger-rgb: 204 54 48;
+  --muted-rgb: 103 105 103;
+
+  --border: rgba(58, 58, 54, 0.12);
+  --text-main: #292B29;
+  --shadow: 0 8px 30px rgba(45, 45, 40, 0.08);
 }
 
 .dark {
-  --background-rgb: 10 12 20; /* #0A0C14 - deep space background */
-  --surface-rgb: 18 21 36; /* #121524 - dark surface */
-  --surface-light-rgb: 28 33 54; /* #1C2136 - secondary dark surface */
-  --primary-rgb: 74 91 220; /* #4A5BDC - cyan-blue */
-  --secondary-rgb: 107 124 255; /* #6B7CFF - indigo */
-  --accent-rgb: 0 229 255; /* #00E5FF - electric cyan */
-  --success-rgb: 16 185 129;
-  --warning-rgb: 245 158 11;
-  --danger-rgb: 239 68 68;
-  --muted-rgb: 100 116 139;
-  --border: rgba(255, 255, 255, 0.08);
-  --text-main: #ffffff;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  --background-rgb: 24 25 23;
+  --surface-rgb: 34 35 32;
+  --surface-light-rgb: 47 48 44;
+
+  --primary-rgb: 235 91 68;
+  --secondary-rgb: 244 125 77;
+  --accent-rgb: 231 174 67;
+
+  --success-rgb: 75 177 111;
+  --warning-rgb: 229 163 57;
+  --danger-rgb: 226 76 67;
+  --muted-rgb: 151 153 148;
+
+  --border: rgba(255, 255, 255, 0.10);
+  --text-main: #F2F2ED;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.30);
 }
