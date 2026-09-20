@@ -618,7 +618,7 @@ pytest -v                     # verbose output
 
 ```text
 sparsh-data-orbit
-anushka-risk-backend
+anushka&shivanshi-risk-backend
 suryansh-dashboard
 yuvraj-frontend-visualisation
 ```
