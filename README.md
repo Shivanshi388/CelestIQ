@@ -4,18 +4,18 @@
 
 ### *Intelligent Collision-Avoidance Decision Support & Manoeuvre Optimisation Engine*
 
-<img src="https://img.shields.io/badge/STATUS-IN%20DEVELOPMENT-6C63FF?style=for-the-badge&labelColor=0D1117" alt="status"/>
-<img src="https://img.shields.io/badge/VERSION-0.1.0--alpha-8A2BE2?style=for-the-badge&labelColor=0D1117" alt="version"/>
-<img src="https://img.shields.io/badge/LICENSE-EDUCATIONAL-4B0082?style=for-the-badge&labelColor=0D1117" alt="license"/>
+<img src="https://img.shields.io/badge/STATUS-IN%20DEVELOPMENT-D64C38?style=for-the-badge&labelColor=292B29" alt="status"/>
+<img src="https://img.shields.io/badge/VERSION-0.1.0--alpha-E8A63D?style=for-the-badge&labelColor=292B29" alt="version"/>
+<img src="https://img.shields.io/badge/LICENSE-EDUCATIONAL-C64630?style=for-the-badge&labelColor=292B29" alt="license"/>
 
 <br/>
 
-<img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=1a1a2e" alt="python"/>
-<img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=flat-square&logo=fastapi&logoColor=white&labelColor=1a1a2e" alt="fastapi"/>
-<img src="https://img.shields.io/badge/SQL-Database-CC2927?style=flat-square&logo=postgresql&logoColor=white&labelColor=1a1a2e" alt="sql"/>
-<img src="https://img.shields.io/badge/Docker-Containerised-2496ED?style=flat-square&logo=docker&logoColor=white&labelColor=1a1a2e" alt="docker"/>
-<img src="https://img.shields.io/badge/Pytest-Tested-0A9EDC?style=flat-square&logo=pytest&logoColor=white&labelColor=1a1a2e" alt="pytest"/>
-<img src="https://img.shields.io/badge/JavaScript-Frontend-F7DF1E?style=flat-square&logo=javascript&logoColor=black&labelColor=1a1a2e" alt="javascript"/>
+<img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white&labelColor=292B29" alt="python"/>
+<img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=flat-square&logo=fastapi&logoColor=white&labelColor=292B29" alt="fastapi"/>
+<img src="https://img.shields.io/badge/SQL-Database-CC2927?style=flat-square&logo=postgresql&logoColor=white&labelColor=292B29" alt="sql"/>
+<img src="https://img.shields.io/badge/Docker-Containerised-2496ED?style=flat-square&logo=docker&logoColor=white&labelColor=292B29" alt="docker"/>
+<img src="https://img.shields.io/badge/Pytest-Tested-0A9EDC?style=flat-square&logo=pytest&logoColor=white&labelColor=292B29" alt="pytest"/>
+<img src="https://img.shields.io/badge/JavaScript-Frontend-F7DF1E?style=flat-square&logo=javascript&logoColor=black&labelColor=292B29" alt="javascript"/>
 
 <br/><br/>
 
@@ -52,8 +52,8 @@ The system ingests orbital data, propagates future trajectories, detects predict
 
 <div align="center">
 
-| 🎯 Precision | 🧠 Explainability | ⚡ Speed | 🖥️ Clarity |
-|:---:|:---:|:---:|:---:|
+|                           🎯 Precision                           |                  🧠 Explainability                  |                        ⚡ Speed                       |                     🖥️ Clarity                    |
+| :--------------------------------------------------------------: | :-------------------------------------------------: | :--------------------------------------------------: | :------------------------------------------------: |
 | Transparent risk scoring built from weighted, documented factors | Every recommendation ships with the "why" behind it | Lightweight Python core designed for rapid iteration | Dashboard-first UX for fast operator comprehension |
 
 </div>
@@ -69,26 +69,28 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <td width="50%" valign="top">
 
 ### Primary Objectives
-- 🏗️ Clean, modular software architecture for conjunction analysis
-- 📊 Consistent, validated orbital data processing pipeline
-- 🛰️ Predicted close-approach detection
-- 📈 Transparent, understandable risk scoring
-- 🚨 Intelligent alert prioritisation
-- 🔀 Multi-candidate manoeuvre generation & comparison
-- 🖥️ Accessible, real-time dashboard
-- 💡 Full explainability layer
-- 🎬 Reliable demo scenario for presentations
+
+* 🏗️ Clean, modular software architecture for conjunction analysis
+* 📊 Consistent, validated orbital data processing pipeline
+* 🛰️ Predicted close-approach detection
+* 📈 Transparent, understandable risk scoring
+* 🚨 Intelligent alert prioritisation
+* 🔀 Multi-candidate manoeuvre generation & comparison
+* 🖥️ Accessible, real-time dashboard
+* 💡 Full explainability layer
+* 🎬 Reliable demo scenario for presentations
 
 </td>
 <td width="50%" valign="top">
 
 ### Secondary Objectives
-- 🌐 Future integration with live orbital-data providers (CelesTrak, etc.)
-- 📉 Uncertainty & covariance-aware risk modelling
-- 🤖 Modular ML-ready architecture
-- 🧪 Fully testable, reusable backend components
-- ☁️ Cloud-deployment readiness
-- 🔔 Notification & alerting pipeline
+
+* 🌐 Future integration with live orbital-data providers (CelesTrak, etc.)
+* 📉 Uncertainty & covariance-aware risk modelling
+* 🤖 Modular ML-ready architecture
+* 🧪 Fully testable, reusable backend components
+* ☁️ Cloud-deployment readiness
+* 🔔 Notification & alerting pipeline
 
 </td>
 </tr>
@@ -102,10 +104,10 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <summary><b>📥 Orbital Data Processing</b></summary>
 <br/>
 
-- Ingests data from local sample files, with future support for live external APIs
-- Parses heterogeneous records into a unified internal schema
-- Detects and flags missing, malformed, or invalid entries
-- Normalises timestamps, units of measurement, and object identifiers
+* Ingests data from local sample files, with future support for live external APIs
+* Parses heterogeneous records into a unified internal schema
+* Detects and flags missing, malformed, or invalid entries
+* Normalises timestamps, units of measurement, and object identifiers
 
 </details>
 
@@ -113,9 +115,9 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <summary><b>🛰️ Orbit Propagation</b></summary>
 <br/>
 
-- Projects future object positions across a configurable time window
-- Prepares clean, structured position data for downstream conjunction screening
-- Designed to later support covariance and uncertainty propagation
+* Projects future object positions across a configurable time window
+* Prepares clean, structured position data for downstream conjunction screening
+* Designed to later support covariance and uncertainty propagation
 
 </details>
 
@@ -123,10 +125,10 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <summary><b>⚠️ Conjunction Detection</b></summary>
 <br/>
 
-- Cross-compares predicted trajectories across tracked objects
-- Identifies statistically significant close approaches
-- Calculates precise Time of Closest Approach (TCA)
-- Persists miss distance and full encounter metadata
+* Cross-compares predicted trajectories across tracked objects
+* Identifies statistically significant close approaches
+* Calculates precise Time of Closest Approach (TCA)
+* Persists miss distance and full encounter metadata
 
 </details>
 
@@ -134,10 +136,10 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <summary><b>📊 Risk Assessment Engine</b></summary>
 <br/>
 
-- Estimates collision probability from multiple weighted factors
-- Produces a single, comparable, transparent risk score
-- Categorises every alert as **Critical / High / Monitor / Low**
-- Ranks the full alert queue by operational urgency
+* Estimates collision probability from multiple weighted factors
+* Produces a single, comparable, transparent risk score
+* Categorises every alert as **Critical / High / Monitor / Low**
+* Ranks the full alert queue by operational urgency
 
 </details>
 
@@ -145,11 +147,11 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <summary><b>🚀 Manoeuvre Decision Support</b></summary>
 <br/>
 
-- Generates multiple candidate avoidance manoeuvres
-- Simulates the downstream effect of each candidate
-- Compares candidates across miss distance, ΔV, and mission impact
-- Applies hard safety and mission constraints
-- Recommends the single best **feasible** option
+* Generates multiple candidate avoidance manoeuvres
+* Simulates the downstream effect of each candidate
+* Compares candidates across miss distance, ΔV, and mission impact
+* Applies hard safety and mission constraints
+* Recommends the single best **feasible** option
 
 </details>
 
@@ -157,9 +159,9 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <summary><b>💡 Explainability Layer</b></summary>
 <br/>
 
-- Surfaces *why* a conjunction received its risk classification
-- Breaks down every factor behind a manoeuvre recommendation
-- Prioritises operator trust over black-box scoring
+* Surfaces *why* a conjunction received its risk classification
+* Breaks down every factor behind a manoeuvre recommendation
+* Prioritises operator trust over black-box scoring
 
 </details>
 
@@ -167,11 +169,11 @@ The system ingests orbital data, propagates future trajectories, detects predict
 <summary><b>🖥️ Web Dashboard</b></summary>
 <br/>
 
-- Live summary of all active alerts
-- Deep-dive conjunction detail views with encounter timelines
-- Side-by-side manoeuvre candidate comparison
-- Interactive charts and orbit visualisations
-- Fully responsive across desktop, tablet, and mobile
+* Live summary of all active alerts
+* Deep-dive conjunction detail views with encounter timelines
+* Side-by-side manoeuvre candidate comparison
+* Interactive charts and orbit visualisations
+* Fully responsive across desktop, tablet, and mobile
 
 </details>
 
@@ -233,11 +235,11 @@ flowchart TB
     B11 --> C1 & C2 & C3 & C4 & C5
     C1 & C2 & C3 & C4 & C5 --> D1 & D2 & D3 & D4
 
-    style INPUT fill:#1a1a2e,stroke:#8A2BE2,color:#fff
-    style BACKEND fill:#16213e,stroke:#6C63FF,color:#fff
-    style API fill:#0f3460,stroke:#4B0082,color:#fff
-    style FRONTEND fill:#1a1a2e,stroke:#00d4ff,color:#fff
-    style DB fill:#16213e,stroke:#CC2927,color:#fff
+    style INPUT fill:#292B29,stroke:#D64C38,color:#fff
+    style BACKEND fill:#3A3A35,stroke:#EF7448,color:#fff
+    style API fill:#5A3A32,stroke:#E8A63D,color:#fff
+    style FRONTEND fill:#292B29,stroke:#E8754F,color:#fff
+    style DB fill:#3A3A35,stroke:#C64630,color:#fff
 ```
 
 ---
@@ -259,13 +261,13 @@ flowchart LR
     K --> L[API Response]
     L --> M([🖥️ Web Dashboard])
 
-    classDef purple fill:#6C63FF,stroke:#4B0082,color:#fff,stroke-width:2px
-    classDef blue fill:#0f3460,stroke:#00d4ff,color:#fff,stroke-width:2px
-    classDef gold fill:#8A2BE2,stroke:#ffd700,color:#fff,stroke-width:2px
+    classDef primary fill:#D64C38,stroke:#A93B2C,color:#fff,stroke-width:2px
+    classDef secondary fill:#EF7448,stroke:#C95C35,color:#fff,stroke-width:2px
+    classDef accent fill:#E8A63D,stroke:#B78327,color:#fff,stroke-width:2px
 
-    class A,M gold
-    class B,C,D,E purple
-    class F,G,H,I,J,K,L blue
+    class A,M accent
+    class B,C,D,E primary
+    class F,G,H,I,J,K,L secondary
 ```
 
 ---
@@ -274,16 +276,16 @@ flowchart LR
 
 <div align="center">
 
-| Layer | Technology | Purpose |
-|:---|:---|:---|
-| 🐍 **Backend Core** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) | Core application logic, orbital math, risk engine |
-| 🚀 **API Layer** | ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) | High-performance typed REST API |
-| 🗃️ **Data Processing** | ![Python](https://img.shields.io/badge/Modules-CSV%2FJSON-3776AB?style=flat-square&logo=python&logoColor=white) | Ingestion, parsing, transformation |
-| 🗄️ **Database** | ![SQL](https://img.shields.io/badge/SQL-CC2927?style=flat-square&logo=postgresql&logoColor=white) | Structured persistence layer |
-| 🎨 **Frontend** | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) | Dashboard UI & interactivity |
-| 🧪 **Testing** | ![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white) | Automated backend test suite |
-| 📦 **Deployment** | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Docker Compose](https://img.shields.io/badge/Compose-2496ED?style=flat-square&logo=docker&logoColor=white) | Containerised, reproducible environments |
-| 🤖 **Optional Intelligence** | ![scikit-learn](https://img.shields.io/badge/ML-Optional-F7931E?style=flat-square&logo=scikitlearn&logoColor=white) | Future machine-learning risk modelling |
+| Layer                        | Technology                                                                                                                                                                                                                                                                                                           | Purpose                                           |
+| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ |
+| 🐍 **Backend Core**          | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square\&logo=python\&logoColor=white)                                                                                                                                                                                                                | Core application logic, orbital math, risk engine |
+| 🚀 **API Layer**             | ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square\&logo=fastapi\&logoColor=white)                                                                                                                                                                                                             | High-performance typed REST API                   |
+| 🗃️ **Data Processing**      | ![Python](https://img.shields.io/badge/Modules-CSV%2FJSON-3776AB?style=flat-square\&logo=python\&logoColor=white)                                                                                                                                                                                                    | Ingestion, parsing, transformation                |
+| 🗄️ **Database**             | ![SQL](https://img.shields.io/badge/SQL-CC2927?style=flat-square\&logo=postgresql\&logoColor=white)                                                                                                                                                                                                                  | Structured persistence layer                      |
+| 🎨 **Frontend**              | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square\&logo=html5\&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square\&logo=css3\&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square\&logo=javascript\&logoColor=black) | Dashboard UI & interactivity                      |
+| 🧪 **Testing**               | ![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=flat-square\&logo=pytest\&logoColor=white)                                                                                                                                                                                                                | Automated backend test suite                      |
+| 📦 **Deployment**            | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square\&logo=docker\&logoColor=white) ![Docker Compose](https://img.shields.io/badge/Compose-2496ED?style=flat-square\&logo=docker\&logoColor=white)                                                                                                 | Containerised, reproducible environments          |
+| 🤖 **Optional Intelligence** | ![scikit-learn](https://img.shields.io/badge/ML-Optional-F7931E?style=flat-square\&logo=scikitlearn\&logoColor=white)                                                                                                                                                                                                | Future machine-learning risk modelling            |
 
 </div>
 
@@ -354,12 +356,12 @@ Celestiq/
 
 <div align="center">
 
-| Member | Domain | Core Responsibilities |
-|:---:|:---:|:---|
-| 🧑‍💻 **Sparsh** | Backend · Data & Orbit | Ingestion, parsing, validation, normalisation, propagation, conjunction detection |
-| 🧑‍💻 **Anushka** | Backend · Risk & Integration | Risk scoring, manoeuvre engine, APIs, services, database, ML |
-| 🧑‍💻 **Suryansh** | Frontend · Interface | Dashboard, layout, styling, alert cards, conjunction timeline |
-| 🧑‍💻 **Yuvraj** | Frontend · Visualisation | API integration, manoeuvre comparison, charts, orbit visualisation |
+|             Member            |            Domain            | Core Responsibilities                                                             |
+| :---------------------------: | :--------------------------: | :-------------------------------------------------------------------------------- |
+|        🧑‍💻 **Sparsh**       |    Backend · Data & Orbit    | Ingestion, parsing, validation, normalisation, propagation, conjunction detection |
+| 🧑‍💻 **Anushka & Shivanshi** | Backend · Risk & Integration | Risk scoring, manoeuvre engine, APIs, services, database, ML                      |
+|       🧑‍💻 **Suryansh**      |     Frontend · Interface     | Dashboard, layout, styling, alert cards, conjunction timeline                     |
+|        🧑‍💻 **Yuvraj**       |   Frontend · Visualisation   | API integration, manoeuvre comparison, charts, orbit visualisation                |
 
 </div>
 
@@ -368,6 +370,7 @@ Celestiq/
 <br/>
 
 **Sparsh — Data & Orbit**
+
 ```text
 backend/app/data/*
 backend/app/orbit/*
@@ -375,7 +378,8 @@ data/sample/*  ·  data/processed/*
 tests/test_ingestion.py  ·  tests/test_orbit.py
 ```
 
-**Anushka — Risk, Manoeuvre & Integration**
+**Anushka & Shivanshi — Risk, Manoeuvre & Integration**
+
 ```text
 backend/app/api/*  ·  backend/app/risk/*  ·  backend/app/manoeuvre/*
 backend/app/ml/*  ·  backend/app/services/*  ·  database/*
@@ -383,6 +387,7 @@ tests/test_risk.py  ·  tests/test_manoeuvre.py  ·  tests/test_optimizer.py  ·
 ```
 
 **Suryansh — Dashboard & Interface**
+
 ```text
 frontend/index.html  ·  frontend/dashboard.html  ·  frontend/conjunction.html
 frontend/css/style.css  ·  frontend/css/dashboard.css
@@ -391,6 +396,7 @@ frontend/assets/*
 ```
 
 **Yuvraj — Visualisation & Interactivity**
+
 ```text
 frontend/manoeuvres.html  ·  frontend/css/responsive.css
 frontend/js/api.js  ·  frontend/js/manoeuvres.js
@@ -416,16 +422,16 @@ risk_score =
 
 <div align="center">
 
-| Factor | Description |
-|:---|:---|
-| 🎯 **Collision Probability** | Estimated statistical chance of impact |
-| 📏 **Minimum Separation** | Predicted closest distance between objects |
-| ⏱️ **Time Urgency** | Time remaining until closest approach |
+| Factor                       | Description                                 |
+| :--------------------------- | :------------------------------------------ |
+| 🎯 **Collision Probability** | Estimated statistical chance of impact      |
+| 📏 **Minimum Separation**    | Predicted closest distance between objects  |
+| ⏱️ **Time Urgency**          | Time remaining until closest approach       |
 | 🌫️ **Position Uncertainty** | Confidence bounds on predicted trajectories |
-| 🛰️ **Relative Velocity** | Speed differential at closest approach |
-| 🏷️ **Object Type** | Debris vs. active payload classification |
-| 🎖️ **Mission Criticality** | Operational importance of the asset |
-| 📊 **Data Quality/Age** | Freshness and reliability of input data |
+| 🛰️ **Relative Velocity**    | Speed differential at closest approach      |
+| 🏷️ **Object Type**          | Debris vs. active payload classification    |
+| 🎖️ **Mission Criticality**  | Operational importance of the asset         |
+| 📊 **Data Quality/Age**      | Freshness and reliability of input data     |
 
 </div>
 
@@ -439,13 +445,13 @@ Celestiq generates and scores multiple candidate avoidance strategies:
 
 <div align="center">
 
-| Candidate Type | Description |
-|:---|:---|
-| ↗️ Along-track ΔV | Small velocity change along the direction of motion |
-| ↕️ Radial ΔV | Small velocity change toward/away from Earth |
-| ↔️ Cross-track ΔV | Small velocity change perpendicular to the orbit plane |
-| ⏪⏩ Timing Shift | Earlier or later execution window |
-| 📶 Magnitude Variants | Alternative manoeuvre intensities |
+| Candidate Type        | Description                                            |
+| :-------------------- | :----------------------------------------------------- |
+| ↗️ Along-track ΔV     | Small velocity change along the direction of motion    |
+| ↕️ Radial ΔV          | Small velocity change toward/away from Earth           |
+| ↔️ Cross-track ΔV     | Small velocity change perpendicular to the orbit plane |
+| ⏪⏩ Timing Shift       | Earlier or later execution window                      |
+| 📶 Magnitude Variants | Alternative manoeuvre intensities                      |
 
 </div>
 
@@ -467,17 +473,17 @@ Only candidates that **pass all safety and mission constraints** are eligible fo
 
 <div align="center">
 
-| Method | Endpoint | Description |
-|:---:|:---|:---|
-| `GET` | `/health` | Backend availability check |
-| `GET` | `/satellites` | List all tracked satellites |
-| `GET` | `/conjunctions` | List predicted conjunctions |
-| `GET` | `/conjunctions/{id}` | Retrieve a single conjunction |
-| `GET` | `/risk/{id}` | Retrieve full risk analysis |
-| `POST` | `/manoeuvres/generate` | Generate candidate manoeuvres |
-| `POST` | `/manoeuvres/simulate` | Simulate a candidate manoeuvre |
+| Method | Endpoint               | Description                        |
+| :----: | :--------------------- | :--------------------------------- |
+|  `GET` | `/health`              | Backend availability check         |
+|  `GET` | `/satellites`          | List all tracked satellites        |
+|  `GET` | `/conjunctions`        | List predicted conjunctions        |
+|  `GET` | `/conjunctions/{id}`   | Retrieve a single conjunction      |
+|  `GET` | `/risk/{id}`           | Retrieve full risk analysis        |
+| `POST` | `/manoeuvres/generate` | Generate candidate manoeuvres      |
+| `POST` | `/manoeuvres/simulate` | Simulate a candidate manoeuvre     |
 | `POST` | `/manoeuvres/optimise` | Select the best feasible candidate |
-| `GET` | `/reports/{id}` | Generate a full conjunction report |
+|  `GET` | `/reports/{id}`        | Generate a full conjunction report |
 
 </div>
 
@@ -491,10 +497,10 @@ Only candidates that **pass all safety and mission constraints** are eligible fo
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)
-![Git](https://img.shields.io/badge/Git-Required-F05032?style=flat-square&logo=git&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS%20Code-Recommended-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square\&logo=python\&logoColor=white)
+![Git](https://img.shields.io/badge/Git-Required-F05032?style=flat-square\&logo=git\&logoColor=white)
+![VS Code](https://img.shields.io/badge/VS%20Code-Recommended-007ACC?style=flat-square\&logo=visualstudiocode\&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Optional-2496ED?style=flat-square\&logo=docker\&logoColor=white)
 
 </div>
 
@@ -513,12 +519,14 @@ cd Celestiq
 ### 2️⃣ Create a Virtual Environment
 
 **Windows (PowerShell)**
+
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
 
 **macOS / Linux**
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -533,11 +541,13 @@ pip install -r backend/requirements.txt
 ### 4️⃣ Configure Environment Variables
 
 **Windows**
+
 ```powershell
 Copy-Item .env.example .env
 ```
 
 **macOS / Linux**
+
 ```bash
 cp .env.example .env
 ```
@@ -554,9 +564,9 @@ cp .env.example .env
 uvicorn backend.app.main:app --reload
 ```
 
-| Resource | URL |
-|:---|:---|
-| 🌐 API Root | `http://127.0.0.1:8000` |
+| Resource            | URL                          |
+| ------------------- | ---------------------------- |
+| 🌐 API Root         | `http://127.0.0.1:8000`      |
 | 📖 Interactive Docs | `http://127.0.0.1:8000/docs` |
 
 ### Frontend
@@ -588,15 +598,15 @@ pytest -v                     # verbose output
 
 <div align="center">
 
-| Coverage Area | Status |
-|:---|:---:|
-| Data Loading & Validation | 🧪 |
-| Orbit Propagation | 🧪 |
-| Conjunction Detection | 🧪 |
-| Risk Scoring | 🧪 |
-| Manoeuvre Generation & Simulation | 🧪 |
-| Manoeuvre Optimisation | 🧪 |
-| API Responses | 🧪 |
+| Coverage Area                     | Status |
+| :-------------------------------- | :----: |
+| Data Loading & Validation         |   🧪   |
+| Orbit Propagation                 |   🧪   |
+| Conjunction Detection             |   🧪   |
+| Risk Scoring                      |   🧪   |
+| Manoeuvre Generation & Simulation |   🧪   |
+| Manoeuvre Optimisation            |   🧪   |
+| API Responses                     |   🧪   |
 
 </div>
 
@@ -629,13 +639,13 @@ git pull origin main
 
 ### Collaboration Standards
 
-- 🚫 Never commit passwords, tokens, or private keys
-- 🤝 Don't modify another member's files without discussion
-- 🧩 Keep commits small and focused
-- ✅ Test before opening a Pull Request
-- 📝 Document algorithm changes in the relevant `docs/` file
-- 🔀 Merge into `main` only via Pull Request
-- 🧵 Resolve conflicts carefully — never overwrite others' work
+* 🚫 Never commit passwords, tokens, or private keys
+* 🤝 Don't modify another member's files without discussion
+* 🧩 Keep commits small and focused
+* ✅ Test before opening a Pull Request
+* 📝 Document algorithm changes in the relevant `docs/` file
+* 🔀 Merge into `main` only via Pull Request
+* 🧵 Resolve conflicts carefully — never overwrite others' work
 
 ---
 
@@ -643,16 +653,16 @@ git pull origin main
 
 <div align="center">
 
-| File | Contents |
-|:---|:---|
-| `ARCHITECTURE.md` | System design & module relationships |
-| `API_CONTRACT.md` | Endpoint inputs & outputs |
-| `DATA_SOURCES.md` | Data formats, providers, limitations |
-| `ALGORITHM.md` | Propagation, conjunction, risk & optimisation methods |
-| `TEAM_WORKPLAN.md` | Tasks, deadlines, progress |
-| `FILE_OWNERSHIP.md` | Team responsibility map |
-| `DEMO_SCRIPT.md` | Step-by-step presentation guide |
-| `TROUBLESHOOTING.md` | Common errors & fixes |
+| File                 | Contents                                              |
+| :------------------- | :---------------------------------------------------- |
+| `ARCHITECTURE.md`    | System design & module relationships                  |
+| `API_CONTRACT.md`    | Endpoint inputs & outputs                             |
+| `DATA_SOURCES.md`    | Data formats, providers, limitations                  |
+| `ALGORITHM.md`       | Propagation, conjunction, risk & optimisation methods |
+| `TEAM_WORKPLAN.md`   | Tasks, deadlines, progress                            |
+| `FILE_OWNERSHIP.md`  | Team responsibility map                               |
+| `DEMO_SCRIPT.md`     | Step-by-step presentation guide                       |
+| `TROUBLESHOOTING.md` | Common errors & fixes                                 |
 
 </div>
 
@@ -660,13 +670,13 @@ git pull origin main
 
 ## 🛡️ Security & Privacy
 
-- 🔐 Secrets stored **only** in `.env` — never committed
-- 📄 `.env.example` documents variable names without real values
-- 🚫 No personal access tokens or DB credentials in the repo
-- ✅ All API input validated server-side
-- 🚧 No arbitrary file paths accepted from users
-- 🪵 Errors logged without leaking secrets
-- 🔑 Authentication required before any public deployment
+* 🔐 Secrets stored **only** in `.env` — never committed
+* 📄 `.env.example` documents variable names without real values
+* 🚫 No personal access tokens or DB credentials in the repo
+* ✅ All API input validated server-side
+* 🚧 No arbitrary file paths accepted from users
+* 🪵 Errors logged without leaking secrets
+* 🔑 Authentication required before any public deployment
 
 ---
 
@@ -674,13 +684,13 @@ git pull origin main
 
 > Transparency matters — these limitations should be disclosed in every demonstration.
 
-- Simplified orbital propagation & collision-probability modelling
-- Incomplete uncertainty/covariance handling
-- Limited, synthetic demonstration datasets
-- Simplified manoeuvre physics
-- No direct spacecraft command capability
-- No guarantee of operational-grade accuracy
-- Not a replacement for official conjunction data or mission analysis
+* Simplified orbital propagation & collision-probability modelling
+* Incomplete uncertainty/covariance handling
+* Limited, synthetic demonstration datasets
+* Simplified manoeuvre physics
+* No direct spacecraft command capability
+* No guarantee of operational-grade accuracy
+* Not a replacement for official conjunction data or mission analysis
 
 ---
 
@@ -688,23 +698,23 @@ git pull origin main
 
 <div align="center">
 
-| Phase | Enhancement |
-|:---:|:---|
-| 🌐 | Integration with validated live orbital-data providers |
-| 📐 | High-fidelity orbit propagation models |
-| 📉 | Covariance & uncertainty propagation |
-| 📡 | Conjunction Data Message (CDM) support |
-| 🎯 | Realistic collision-probability calculations |
-| 🛰️ | Mission-specific constraint profiles |
-| ⛽ | Fuel & propellant modelling |
-| 🔢 | Multi-object simultaneous conjunction analysis |
-| 📊 | Historical alert analytics |
-| 🌍 | Advanced 3D orbit visualisation |
-| 🔐 | User authentication & role-based access |
-| 🔔 | Real-time notification delivery |
-| 🤖 | ML model monitoring & explainability dashboard |
-| ☁️ | Cloud-native deployment |
-| 🔄 | Full CI/CD pipeline |
+| Phase | Enhancement                                            |
+| :---: | :----------------------------------------------------- |
+|   🌐  | Integration with validated live orbital-data providers |
+|   📐  | High-fidelity orbit propagation models                 |
+|   📉  | Covariance & uncertainty propagation                   |
+|   📡  | Conjunction Data Message (CDM) support                 |
+|   🎯  | Realistic collision-probability calculations           |
+|  🛰️  | Mission-specific constraint profiles                   |
+|   ⛽   | Fuel & propellant modelling                            |
+|   🔢  | Multi-object simultaneous conjunction analysis         |
+|   📊  | Historical alert analytics                             |
+|   🌍  | Advanced 3D orbit visualisation                        |
+|   🔐  | User authentication & role-based access                |
+|   🔔  | Real-time notification delivery                        |
+|   🤖  | ML model monitoring & explainability dashboard         |
+|   ☁️  | Cloud-native deployment                                |
+|   🔄  | Full CI/CD pipeline                                    |
 
 </div>
 
@@ -712,11 +722,11 @@ git pull origin main
 
 ## 📖 Acknowledgements & References
 
-- NASA — Conjunction Assessment and Collision Avoidance resources
-- CelesTrak — Orbital element data & format documentation
-- FastAPI — Official documentation
-- Python — Official documentation
-- Academic and technical literature on orbit propagation, conjunction assessment, collision probability, and spacecraft manoeuvre planning
+* NASA — Conjunction Assessment and Collision Avoidance resources
+* CelesTrak — Orbital element data & format documentation
+* FastAPI — Official documentation
+* Python — Official documentation
+* Academic and technical literature on orbit propagation, conjunction assessment, collision probability, and spacecraft manoeuvre planning
 
 ---
 
@@ -736,10 +746,10 @@ For questions, open an issue on the project repository or reach the team via the
 
 **Built with 🛰️ by the Celestiq Team**
 
-<img src="https://img.shields.io/badge/Sparsh-Data%20%26%20Orbit-6C63FF?style=flat-square" alt="sparsh"/>
-<img src="https://img.shields.io/badge/Anushka-Risk%20%26%20Backend-8A2BE2?style=flat-square" alt="anushka"/>
-<img src="https://img.shields.io/badge/Suryansh-Dashboard-4B0082?style=flat-square" alt="suryansh"/>
-<img src="https://img.shields.io/badge/Yuvraj-Visualisation-00d4ff?style=flat-square" alt="yuvraj"/>
+<img src="https://img.shields.io/badge/Sparsh-Data%20%26%20Orbit-D64C38?style=flat-square" alt="sparsh"/>
+<img src="https://img.shields.io/badge/Anushka%20%26%20Shivanshi-Risk%20%26%20Backend-EF7448?style=flat-square" alt="anushka and shivanshi"/>
+<img src="https://img.shields.io/badge/Suryansh-Dashboard-E8A63D?style=flat-square" alt="suryansh"/>
+<img src="https://img.shields.io/badge/Yuvraj-Visualisation-C64630?style=flat-square" alt="yuvraj"/>
 
 <br/><br/>
 
